@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{bcbe1a64-069b-4591-bb78-4ba7513280c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty">
+      <UniqueIdentifier>{9beae83a-d218-4ca2-9b23-cc3c6656b6f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="audio">
+      <UniqueIdentifier>{c5372718-0a5b-414f-b61d-7432c36a3900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="physics">
+      <UniqueIdentifier>{e8b47437-2adc-43f6-82ad-ac6361c7d0b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dev">
+      <UniqueIdentifier>{758be7a5-8f94-4722-9b58-fc5c012a04e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="io">
+      <UniqueIdentifier>{e8c9aec6-1e1e-429d-a32f-2acc8ebc8e66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{595c0fba-01a1-4989-9048-8832c6588d03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="plugins">
+      <UniqueIdentifier>{8579ea24-625f-4485-80a9-da570ea22ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{d676665a-5020-42d5-b378-9f37afee6ea6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="math\vector.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="core\common.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\type.h">
+      <Filter>core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="math\vector.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
