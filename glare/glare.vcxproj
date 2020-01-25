@@ -159,11 +159,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="core\assert.h" />
     <ClInclude Include="core\common.h" />
+    <ClInclude Include="core\preference.h" />
+    <ClInclude Include="core\string_utilities.h" />
     <ClInclude Include="core\type.h" />
+    <ClInclude Include="core\window.h" />
     <ClInclude Include="math\vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="core\assert.cpp" />
+    <ClCompile Include="core\string_utilities.cpp" />
+    <ClCompile Include="core\window.cpp" />
     <ClCompile Include="math\vector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
