@@ -159,19 +159,60 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\imgui\imgui.cpp" />
+    <ClCompile Include="..\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\pugixml\pugixml.cpp" />
+    <ClCompile Include="core\common.cpp" />
+    <ClCompile Include="data\xml_utils.cpp" />
+    <ClCompile Include="dev\dev_ui.cpp" />
+    <ClCompile Include="render\render_target.cpp" />
+    <ClCompile Include="render\shader.cpp" />
+    <ClCompile Include="render\texture.cpp" />
+    <ClCompile Include="render\vertex.cpp" />
+    <ClInclude Include="..\imgui\imconfig.h" />
+    <ClInclude Include="..\imgui\imgui.h" />
+    <ClInclude Include="..\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="..\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="..\imgui\imgui_internal.h" />
+    <ClInclude Include="..\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\imgui\imstb_truetype.h" />
+    <ClInclude Include="..\pugixml\pugiconfig.hpp" />
+    <ClInclude Include="..\pugixml\pugixml.hpp" />
     <ClInclude Include="core\assert.h" />
+    <ClInclude Include="core\color.h" />
     <ClInclude Include="core\common.h" />
+    <ClInclude Include="core\log.h" />
     <ClInclude Include="core\preference.h" />
     <ClInclude Include="core\string_utilities.h" />
     <ClInclude Include="core\type.h" />
     <ClInclude Include="core\window.h" />
+    <ClInclude Include="data\xml_utils.h" />
+    <ClInclude Include="dev\dev_ui.h" />
+    <ClInclude Include="math\matrix.h" />
+    <ClInclude Include="math\utilities.h" />
     <ClInclude Include="math\vector.h" />
+    <ClInclude Include="render\buffer.h" />
+    <ClInclude Include="render\common.h" />
+    <ClCompile Include="render\buffer.cpp" />
+    <ClInclude Include="render\renderer.h" />
+    <ClInclude Include="render\render_target.h" />
+    <ClInclude Include="render\shader.h" />
+    <ClInclude Include="render\texture.h" />
+    <ClInclude Include="render\vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\assert.cpp" />
+    <ClCompile Include="core\color.cpp" />
+    <ClCompile Include="core\log.cpp" />
     <ClCompile Include="core\string_utilities.cpp" />
     <ClCompile Include="core\window.cpp" />
     <ClCompile Include="math\vector.cpp" />
+    <ClCompile Include="render\renderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

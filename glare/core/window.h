@@ -43,7 +43,7 @@ public:
 	void	show_mouse					()	const;
 	void	hide_mouse					()	const;
 	
-
+public: //members
 	windows_event_callback_t* game_window_proc;
 	void* m_hwnd = nullptr;
 	e_mouse_input_mode m_mouse_input_mode = MOUSE_INPUT_MODE_ABSOLUTE;

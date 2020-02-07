@@ -43,8 +43,7 @@ static void __msgbox_ok(const std::string& title, const std::string& text)
 {
 #if defined(_WIN32)
 	::ShowCursor(TRUE);
-	int button_clicked =
-		::MessageBoxA(nullptr, text.c_str(), title.c_str(), MB_ICONHAND | MB_OK | MB_TOPMOST);
+	::MessageBoxA(nullptr, text.c_str(), title.c_str(), MB_ICONHAND | MB_OK | MB_TOPMOST);
 	::ShowCursor(FALSE);
 #endif
 }
@@ -111,6 +110,40 @@ void error_and_die(const char* file_path, const char* function_full_name, int li
 		__msgbox_ok(msgbox_title, error_text);
 	}
 	exit(-1);
+}
+
+void alert_and_continue(const char* file_path, const char* function_full_name, int line_number, const std::string& error_message, const char* condition_text)
+{
+	std::string error_text = error_message;
+	if (error_text.empty()) {
+		if (condition_text) {
+			error_text = format("[alert] (%s) == false", condition_text);
+		} else {
+			error_text = "Fatal error";
+		}
+	}
+	error_text += "\n\nThe application will now close.";
+
+	const char* file_name = file_path ? __get_filename_from_path(file_path) : "Unknown File";
+
+	const std::string msgbox_title = "Glare::Alert";
+	const bool has_debugger = is_debugger_available();
+	if (has_debugger) {
+		error_text += "\n*******Debugger Detected*******\n";
+		error_text += format("%s at line %d (%s)\n", (function_full_name ? function_full_name : "Unknown Function"), line_number, file_name);
+		error_text += "(YES = Debug | No = Continue)";
+	}
+
+	// #Todo: add visual studio output here
+
+	if (has_debugger) {
+		const bool yes = __msgbox_yes_no(msgbox_title, error_text);
+		if (yes) {
+			DEBUG_BREAK;
+		}
+	} else {
+		__msgbox_ok(msgbox_title, error_text);
+	}
 }
 
 };

@@ -4,6 +4,19 @@
 #include "glare/core/preference.h"
 #include "glare/core/type.h"
 
-#define NOMINMAX
+#define STATIC
 #define UNUSED(x) ((void)x)
 #define NODISCARD [[nodiscard]]
+
+// WINDOWS
+#define NOMINMAX
+
+namespace glare {
+void _unimplemented_break();
+};
+
+#if defined(_DEBUG)
+#define UNIMPLEMENTED_BREAK {glare::_unimplemented_break();}
+#else
+#define UNIMPELEMTNED_BREAK {}
+#endif
