@@ -188,6 +188,7 @@
     <ClInclude Include="core\common.h" />
     <ClInclude Include="core\log.h" />
     <ClInclude Include="core\preference.h" />
+    <ClInclude Include="core\rng.h" />
     <ClInclude Include="core\string_utilities.h" />
     <ClInclude Include="core\type.h" />
     <ClInclude Include="core\window.h" />

@@ -116,7 +116,7 @@ void window::create(const string& title, float32 aspect_ratio, float32 client_de
 {
 	ASSERT(!is_open(), "Window has already opened.");
 
-	const DWORD window_style_flags = WS_CAPTION | WS_BORDER | WS_THICKFRAME | WS_SYSMENU | WS_OVERLAPPED;
+	const DWORD window_style_flags = WS_CAPTION /*| WS_BORDER | WS_THICKFRAME*/ | WS_SYSMENU | WS_OVERLAPPED;
 	const DWORD window_style_ex = WS_EX_APPWINDOW;
 
 	// Get desktop rect, dimensions, aspect

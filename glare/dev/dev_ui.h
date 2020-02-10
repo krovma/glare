@@ -1,5 +1,6 @@
 #pragma once
 #include "glare/core/common.h"
+#include "imgui/imgui.h"
 
 namespace glare
 {

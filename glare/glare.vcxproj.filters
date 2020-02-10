@@ -129,6 +129,9 @@
     <ClInclude Include="dev\dev_ui.h">
       <Filter>dev</Filter>
     </ClInclude>
+    <ClInclude Include="core\rng.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\vector.cpp">

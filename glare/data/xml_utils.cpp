@@ -25,14 +25,14 @@ void unload_file(document*& doc)
 	doc = nullptr;
 }
 	
-string get_attr(node& node, const char* attr_name, const char* default_value)
+string get_attr(const node& node, const char* attr_name, const char* default_value)
 {
 	const attribute attr = node.attribute(attr_name);
 	return attr.as_string(default_value);
 }
 
 template<>
-string get_attr(node& node, const char* attr_name, const string& default_value)
+string get_attr(const node& node, const char* attr_name, const string& default_value)
 {
 	const attribute attr = node.attribute(attr_name);
 	return attr.as_string(default_value.c_str());
@@ -40,14 +40,14 @@ string get_attr(node& node, const char* attr_name, const string& default_value)
 }
 
 template <>
-int32 get_attr(node& node, const char* attr_name, const int32& default_value)
+int32 get_attr(const node& node, const char* attr_name, const int32& default_value)
 {
 	const attribute attr = node.attribute(attr_name);
 	return attr.as_int(default_value);
 }
 
 template <>
-float32 get_attr(node& node, const char* attr_name, const float32& default_value)
+float32 get_attr(const node& node, const char* attr_name, const float32& default_value)
 {
 	const attribute attr = node.attribute(attr_name);
 	return attr.as_float(default_value);
@@ -59,14 +59,14 @@ float32 get_attr(node& node, const char* attr_name, const float32& default_value
 //| This means that strings like "true" and "yes" are recognized as true, while strings like "false" and "no" are recognized as false.
 //| For more complex matching you¡¯ll have to write your own function.
 template <>
-bool get_attr(node& node, const char* attr_name, const bool& default_value)
+bool get_attr(const node& node, const char* attr_name, const bool& default_value)
 {
 	const attribute attr = node.attribute(attr_name);
 	return attr.as_bool(default_value);
 }
 
 template <>
-char get_attr(node& node, const char* attr_name, const char& default_value)
+char get_attr(const node& node, const char* attr_name, const char& default_value)
 {
 	const attribute attr = node.attribute(attr_name);
 	if (attr.empty()) {
@@ -76,7 +76,7 @@ char get_attr(node& node, const char* attr_name, const char& default_value)
 }
 
 template <>
-uint32 get_attr(node& node, const char* attr_name, const uint32& default_value)
+uint32 get_attr(const node& node, const char* attr_name, const uint32& default_value)
 {
 	const attribute attr = node.attribute(attr_name);
 	return attr.as_uint(default_value);

@@ -38,21 +38,21 @@ std::vector<string> split(
 	const char* cstr, char delimiter, bool collapse_multi_delimiters, bool return_delimiters)
 {
 	std::vector<string> result {""};
-	size_t idx = 0;
+	size_t result_idx = 0;
 	for (size_t i = 0; cstr[i] != '\0'; ++i) {
 		if (cstr[i] != delimiter) {
-			result[i].append(1, cstr[i]);
+			result[result_idx].append(1, cstr[i]);
 		} else {
-			if(result[i].empty()) {
+			if(result[result_idx].empty()) {
 				if (collapse_multi_delimiters && !return_delimiters) {
 					continue;
 				}
 			}
 			if(return_delimiters) {
-				result[idx].append(1, cstr[i]);
+				result[result_idx].append(1, cstr[i]);
 			}
 			result.emplace_back("");
-			++idx;
+			++result_idx;
 		}
 	}
 	if (result[result.size() - 1].empty()) {

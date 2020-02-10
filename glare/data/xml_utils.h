@@ -16,7 +16,7 @@ void		unload_file(document*& doc);
 
 // Attributes
 template <typename T>
-T get_attr(node& node, const char* attr_name, const T& default_value)
+T get_attr(const node& node, const char* attr_name, const T& default_value)
 {
 	T value = default_value;
 	const attribute attr = node.attribute(attr_name);
@@ -27,25 +27,25 @@ T get_attr(node& node, const char* attr_name, const T& default_value)
 	return value;
 }
 
-string get_attr(node& node, const char* attr_name, const char* default_value);
+string get_attr(const node& node, const char* attr_name, const char* default_value);
 
 template<>
-string get_attr(node& node, const char* attr_name, const string& default_value);
+string get_attr(const node& node, const char* attr_name, const string& default_value);
 
 template<>
-int32 get_attr(node& node, const char* attr_name, const int32& default_value);
+int32 get_attr(const node& node, const char* attr_name, const int32& default_value);
 
 template<>
-float32 get_attr(node& node, const char* attr_name, const float32& default_value);
+float32 get_attr(const node& node, const char* attr_name, const float32& default_value);
 
 template<>
-bool get_attr(node& node, const char* attr_name, const bool& default_value);
+bool get_attr(const node& node, const char* attr_name, const bool& default_value);
 
 template<>
-char get_attr(node& node, const char* attr_name, const char& default_value);
+char get_attr(const node& node, const char* attr_name, const char& default_value);
 
 template<>
-uint32 get_attr(node& node, const char* attr_name, const uint32& default_value);
+uint32 get_attr(const node& node, const char* attr_name, const uint32& default_value);
 
 };
 };
