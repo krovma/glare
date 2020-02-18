@@ -1,5 +1,6 @@
 #include "glare/render/texture.h"
 #include "glare/render/renderer.h"
+#include "glare/render/surface.h"
 #include "core/assert.h"
 
 namespace glare
@@ -26,6 +27,48 @@ texture2d::texture2d(renderer* r, dx_texture2d* ref_dx_texture)
 		m_handle = created;
 	} else {
 		FATAL("Creating texture from reference texture failed");
+	}
+}
+
+texture2d::texture2d(renderer* r, const surface* from_surface)
+	: texture(r)
+{
+	dx_device* device = r->get_dx_device();
+	m_texture_usage = TEXTURE_SHADER_RESOURCE;
+	m_memory_usage	= GPU_MEMORY_IMMUTABLE;
+	m_size			= from_surface->m_size;
+	const bool use_rgba8 = (from_surface->m_raw && from_surface->m_raw_channels == 4);
+	D3D11_TEXTURE2D_DESC desc;
+	memset(&desc, 0, sizeof(desc));
+	desc.Width	= m_size.u;
+	desc.Height = m_size.v;
+	desc.MipLevels	= 1;
+	desc.ArraySize	= 1;
+	desc.Usage		= static_cast<D3D11_USAGE>(m_memory_usage);
+	desc.Format		= 
+		use_rgba8
+		?	DXGI_FORMAT_R8G8B8A8_UNORM
+		:	DXGI_FORMAT_R32G32B32A32_FLOAT;
+	desc.BindFlags	= static_cast<D3D11_BIND_FLAG>(m_texture_usage);
+	desc.CPUAccessFlags	= 0;
+	desc.MiscFlags		= 0;
+	desc.SampleDesc.Count	= 1;
+	desc.SampleDesc.Quality	= 0;
+
+	const uint32 pitch = 
+		use_rgba8
+		?	sizeof(rgba8) * m_size.u
+		:	sizeof(rgba) * m_size.u;
+	D3D11_SUBRESOURCE_DATA data;
+	memset(&data, 0, sizeof(data));
+	data.pSysMem		= 
+		use_rgba8
+		?	static_cast<void*>(from_surface->m_raw)
+		:	from_surface->get_surface_buffer();
+	data.SysMemPitch	= pitch;
+	HRESULT hr = device->CreateTexture2D(&desc, &data, reinterpret_cast<dx_texture2d**>(&m_handle));
+	if (FAILED(hr)) {
+		FATAL("Creating texture from surface failed");
 	}
 }
 

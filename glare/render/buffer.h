@@ -126,12 +126,21 @@ public:
 class index_buffer : public render_buffer
 {
 public:
+#if defined(GLARE_INDEX_T_UINT32)
+	using index_t = uint32;
+	static inline constexpr dx_format format = DXGI_FORMAT_R32_UINT;
+#endif
+#if defined(GLARE_INDEX_T_UINT16)
+	using index_t = uint16;
+	static inline constexpr dx_format format = DXGI_FORMAT_R16_UINT;
+#endif
+public:
 	index_buffer(renderer* r);
 
 	virtual ~index_buffer() override = default;
 	virtual bool buffer(const void* data, size_t count) override;
 
-	bool create_immutable_buffer(const size_t* data, size_t count);
+	bool create_immutable_buffer(const index_t* data, size_t count);
 	NODISCARD size_t get_count() const { return m_count; }
 
 public:

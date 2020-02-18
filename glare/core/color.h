@@ -7,22 +7,33 @@ struct rgba8;
 
 struct rgba8
 {
-	byte r = 0;
-	byte g = 0;
-	byte b = 0;
+	byte r = 255;
+	byte g = 255;
+	byte b = 255;
 	byte a = 255;
 	rgba8() = default;
 	explicit rgba8(byte r, byte g, byte b, byte a = 255)
 		:r(r), g(g), b(b), a(a) {
+	}
+	rgba8(const rgba8& copy_from)
+		:r(copy_from.r), g(copy_from.g), b(copy_from.b), a(copy_from.a)
+	{}
+	rgba8& operator=(const rgba8& copy_from)
+	{
+		r = copy_from.r;
+		g = copy_from.g;
+		b = copy_from.b;
+		a = copy_from.a;
+		return *this;
 	}
 	rgba8(const rgba& float_color);
 };
 
 struct rgba
 {
-	float32 r = 0;
-	float32 g = 0;
-	float32 b = 0;
+	float32 r = 1;
+	float32 g = 1;
+	float32 b = 1;
 	float32 a = 1;
 
 	rgba() = default;

@@ -53,6 +53,8 @@ bool render_buffer::create(
 		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	} else if (memory_usage == GPU_MEMORY_STAGING) {
 		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE | D3D11_CPU_ACCESS_READ;
+	} else if (memory_usage == GPU_MEMORY_IMMUTABLE) {
+		desc.CPUAccessFlags = 0;
 	}
 
 	D3D11_SUBRESOURCE_DATA data_desc;
@@ -147,10 +149,10 @@ index_buffer::index_buffer(renderer* r)
 
 bool index_buffer::buffer(const void* data, size_t count)
 {
-	const size_t size = count * sizeof(size_t);
+	const size_t size = count * sizeof(index_t);
 	bool result;
 	if (size > m_buffer_size || is_immutable()) {
-		result = create(data, size, sizeof(size_t), RENDER_BUFFER_INDEX, GPU_MEMORY_DYNAMIC);
+		result = create(data, size, sizeof(index_t), RENDER_BUFFER_INDEX, GPU_MEMORY_DYNAMIC);
 	} else {
 		result = render_buffer::buffer(data, size);
 	}
@@ -160,9 +162,9 @@ bool index_buffer::buffer(const void* data, size_t count)
 	return result;
 }
 
-bool index_buffer::create_immutable_buffer(const size_t* data, size_t count)
+bool index_buffer::create_immutable_buffer(const index_t* data, size_t count)
 {
-	const bool result = create(data, count * sizeof(size_t), sizeof(size_t), RENDER_BUFFER_INDEX, GPU_MEMORY_IMMUTABLE);
+	const bool result = create(data, count * sizeof(index_t), sizeof(index_t), RENDER_BUFFER_INDEX, GPU_MEMORY_IMMUTABLE);
 	if (result) {
 		m_count = count;
 	}

@@ -9,6 +9,8 @@
 
 namespace glare {
 
+//#define GLARE_INDEX_T_UINT16
+#define GLARE_INDEX_T_UINT32
 #define GLARE_RENDERER_DEBUG_LEAK	1
 #define GLARE_RENDERER_DEBUG_SHADER 10
 
@@ -42,6 +44,8 @@ using dx_layout		= ID3D11InputLayout;
 using dx_state_depth_stencil	= ID3D11DepthStencilState;
 using dx_state_rasterizer		= ID3D11RasterizerState;
 using dx_state_blend			= ID3D11BlendState;
+using dx_sampler	= ID3D11SamplerState;
+using dx_format		= DXGI_FORMAT;
 
 enum e_render_buffer_usage
 {
@@ -63,6 +67,16 @@ enum e_texture_usage
 	TEXTURE_SHADER_RESOURCE = D3D11_BIND_SHADER_RESOURCE,
 	TEXTURE_RENDER_TARGET	= D3D11_BIND_RENDER_TARGET,
 	TEXTURE_DEPTH_STENCIL	= D3D11_BIND_DEPTH_STENCIL
+};
+
+enum e_texture_slot : uint32
+{
+	TEXTURE_SLOT_DIFFUSE = 0,
+	TEXTURE_SLOT_NORMAL	 = 1,
+	TEXTURE_SLOT_EMMISIVE = 2,
+	TEXTURE_SLOT_SPECULAR = 3,
+	TEXTURE_SLOT_ROUGHNESS = 4,
+	TEXTURE_SLOT_METALLIC = 5
 };
 
 enum e_constant_buffer_id : uint32

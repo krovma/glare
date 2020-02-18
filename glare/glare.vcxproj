@@ -74,21 +74,25 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</IntDir>
+    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</IntDir>
+    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</IntDir>
+    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</IntDir>
+    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -169,8 +173,15 @@
     <ClCompile Include="core\common.cpp" />
     <ClCompile Include="data\xml_utils.cpp" />
     <ClCompile Include="dev\dev_ui.cpp" />
+    <ClCompile Include="math\aabb2.cpp" />
+    <ClCompile Include="math\mat4.cpp" />
+    <ClCompile Include="render\mesh.cpp" />
+    <ClCompile Include="render\mesh_builder.cpp" />
     <ClCompile Include="render\render_target.cpp" />
+    <ClCompile Include="render\sampler.cpp" />
     <ClCompile Include="render\shader.cpp" />
+    <ClCompile Include="render\sprite.cpp" />
+    <ClCompile Include="render\surface.cpp" />
     <ClCompile Include="render\texture.cpp" />
     <ClCompile Include="render\vertex.cpp" />
     <ClInclude Include="..\imgui\imconfig.h" />
@@ -183,6 +194,9 @@
     <ClInclude Include="..\imgui\imstb_truetype.h" />
     <ClInclude Include="..\pugixml\pugiconfig.hpp" />
     <ClInclude Include="..\pugixml\pugixml.hpp" />
+    <ClInclude Include="..\stb\stb_image.h" />
+    <ClInclude Include="..\stb\stb_image_write.h" />
+    <ClInclude Include="..\stb\stb_truetype.h" />
     <ClInclude Include="core\assert.h" />
     <ClInclude Include="core\color.h" />
     <ClInclude Include="core\common.h" />
@@ -194,15 +208,22 @@
     <ClInclude Include="core\window.h" />
     <ClInclude Include="data\xml_utils.h" />
     <ClInclude Include="dev\dev_ui.h" />
+    <ClInclude Include="math\aabb2.h" />
     <ClInclude Include="math\matrix.h" />
+    <ClInclude Include="math\obb2.h" />
     <ClInclude Include="math\utilities.h" />
     <ClInclude Include="math\vector.h" />
     <ClInclude Include="render\buffer.h" />
     <ClInclude Include="render\common.h" />
     <ClCompile Include="render\buffer.cpp" />
+    <ClInclude Include="render\mesh.h" />
+    <ClInclude Include="render\mesh_builder.h" />
     <ClInclude Include="render\renderer.h" />
     <ClInclude Include="render\render_target.h" />
+    <ClInclude Include="render\sampler.h" />
     <ClInclude Include="render\shader.h" />
+    <ClInclude Include="render\sprite.h" />
+    <ClInclude Include="render\surface.h" />
     <ClInclude Include="render\texture.h" />
     <ClInclude Include="render\vertex.h" />
   </ItemGroup>

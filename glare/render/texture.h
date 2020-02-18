@@ -6,6 +6,7 @@
 namespace glare
 {
 class renderer;
+class surface;
 class texture
 {
 public:
@@ -46,6 +47,7 @@ public:
 	{
 	}
 	texture2d(renderer*r, dx_texture2d* ref_dx_texture);
+	texture2d(renderer*r, const surface* from_surface);
 	~texture2d() override
 	{
 		//texture::~texture();

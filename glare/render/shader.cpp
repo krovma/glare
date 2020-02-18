@@ -206,6 +206,9 @@ bool shader::is_valid() const
 void shader::create_dx_vbo_layout(const buffer_layout* layout)
 {
 	ASSERT(layout, "Invalid buffer layout object");
+	if (layout == m_last_layout) {
+		return;
+	}
 	DX_RELEASE(m_vbo_layout);
 	const size_t attr_count = layout->get_attributes_count();
 	D3D11_INPUT_ELEMENT_DESC* desc = new D3D11_INPUT_ELEMENT_DESC[attr_count];
@@ -227,6 +230,7 @@ void shader::create_dx_vbo_layout(const buffer_layout* layout)
 	if (FAILED(hr)) {
 		FATAL("Creating vbo input layout failed");
 	}
+	m_last_layout = layout;
 }
 
 void shader::set_blend_mode(e_blend_mode blend_mode)

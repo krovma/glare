@@ -34,4 +34,8 @@ constexpr decltype(auto) lerp(const T& a, const T& b, const P alpha)
 
 inline float32 rtd(float32 rad) { return rad / PI * 180.f; }
 inline float32 dtr(float32 deg) { return deg / 180.f * PI; }
+
+inline float32 cos_deg(float32 deg) { return cosf(dtr(deg)); }
+inline float32 sin_deg(float32 deg) { return sinf(dtr(deg)); }
+
 };

@@ -113,6 +113,45 @@ vec2 vec3::from_repl(const string& repl)
 	return result;
 }
 
+vec4::vec4(const vec2& promote_from, float32 z, float32 w)
+	: x(promote_from.x)
+	, y(promote_from.y)
+	, z(z)
+	, w(w)
+{
+}
+
+vec4::vec4(const vec3& promote_from, float32 w)
+	: x(promote_from.x)
+	, y(promote_from.y)
+	, z(promote_from.z)
+	, w(w)
+{
+}
+
+string vec4::repl() const
+{
+	return format("%g,%g,%g", x, y, z, w);
+	
+}
+
+vec4 vec4::from_repl(const string& repl)
+{
+	std::vector<string> comps = split(repl.c_str(), ',');
+	if (comps.size() < 4) {
+		FATAL(format("Cannot convert [%s] to vec4", repl.c_str()));
+	}
+	if (comps.size() > 4) {
+		ALERT(format("[%s] is too long for vec4. Truncated", repl.c_str()));
+	}
+	vec4 result;
+	result.x = strtof(comps[0].c_str(), nullptr);
+	result.y = strtof(comps[1].c_str(), nullptr);
+	result.z = strtof(comps[2].c_str(), nullptr);
+	result.w = strtof(comps[3].c_str(), nullptr);
+	return result;
+}
+
 string ivec2::repl() const
 {
 	return format("%i,%i", x, y);

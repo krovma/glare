@@ -37,6 +37,9 @@
     <Filter Include="thirdparty\imgui">
       <UniqueIdentifier>{cebb403e-c055-4bfb-b00e-5b565176fa3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="thirdparty\stb">
+      <UniqueIdentifier>{bfb6af29-7c06-469d-bf24-4a543f0b9d37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\vector.h">
@@ -132,6 +135,36 @@
     <ClInclude Include="core\rng.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="math\aabb2.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stb\stb_image.h">
+      <Filter>thirdparty\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stb\stb_image_write.h">
+      <Filter>thirdparty\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stb\stb_truetype.h">
+      <Filter>thirdparty\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="render\surface.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\sampler.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\sprite.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\mesh_builder.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="math\obb2.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="render\mesh.h">
+      <Filter>render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\vector.cpp">
@@ -199,6 +232,27 @@
     </ClCompile>
     <ClCompile Include="dev\dev_ui.cpp">
       <Filter>dev</Filter>
+    </ClCompile>
+    <ClCompile Include="render\surface.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="render\sampler.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="render\sprite.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="math\mat4.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="render\mesh_builder.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="math\aabb2.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="render\mesh.cpp">
+      <Filter>render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

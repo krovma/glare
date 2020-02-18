@@ -79,6 +79,7 @@ public:
 	bool				m_depth_clip	= true;
 
 	// update flag
+	const buffer_layout* m_last_layout = nullptr;
 	bool m_update_blend_mode = true;
 	bool m_update_rasterizer = true;
 	bool m_update_depth_stencil = true;

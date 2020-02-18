@@ -1,7 +1,11 @@
 #include "glare/render/renderer.h"
 #include "glare/core/window.h"
 #include "glare/render/shader.h"
+#include "glare/render/surface.h"
+#include "glare/render/mesh.h"
 #include "glare/core/assert.h"
+#include "core/string_utilities.h"
+#include "glare/render/sampler.h"
 
 namespace glare
 {
@@ -44,6 +48,7 @@ renderer::renderer(const window* client)
 	m_buffer_vbo = new vertex_buffer(this);
 	m_buffer_model = new constant_buffer(this);
 	m_buffer_post = new constant_buffer(this);
+	m_buffer_project = new constant_buffer(this);
 	
 #if GLARE_RENDERER_DEBUG_LEVEL >= GLARE_RENDERER_DEBUG_LEAK
 	hr = m_device->QueryInterface(IID_PPV_ARGS(&m_debug));
@@ -53,7 +58,10 @@ renderer::renderer(const window* client)
 
 void renderer::start()
 {
-	// #TODO: add sampler and default texture
+	sampler::init(this);
+	sampler::get_point_sampler();
+	sampler::get_linear_sampler();
+	// #TODO: default texture
 }
 
 void renderer::begin_frame()
@@ -66,18 +74,14 @@ void renderer::begin_frame()
 	m_frame_texture = new texture2d(this, p_back_buffer);		 // a new blank texture for rendering, blit to back buffer at end of frame
 	m_frame_render_target = new render_target();
 	m_frame_render_target->make_from_dx_texture(m_device, m_frame_texture->get_texture_handle());
+	DX_RELEASE(p_back_buffer);
 
 	m_context->OMSetRenderTargets(1, &(m_frame_render_target->m_rtv), nullptr);
-	static D3D11_VIEWPORT vp;
-	memset(&vp, 0, sizeof(vp));
-	vp.TopLeftX = 0u;
-	vp.TopLeftY = 0u;
-	vp.Width = m_frame_render_target->m_size.x;
-	vp.Height = m_frame_render_target->m_size.y;
-	vp.MinDepth = 0.f;
-	vp.MaxDepth = 1.f;
-	m_context->RSSetViewports(1, &vp);
-	DX_RELEASE(p_back_buffer);
+
+	reset_viewport();
+
+	m_buffer_project->buffer(&m_projection, sizeof(m_projection));
+	
 }
 
 void renderer::end_frame()
@@ -101,11 +105,73 @@ void renderer::stop()
 	DX_RELEASE(m_swapchain);
 	DX_RELEASE(m_context);
 	DX_RELEASE(m_device);
-	
 #if GLARE_RENDERER_DEBUG_LEVEL >= GLARE_RENDERER_DEBUG_LEAK
 	m_debug->ReportLiveDeviceObjects(D3D11_RLDO_IGNORE_INTERNAL);
-	DX_RELEASE(m_debug);
 #endif
+	DX_RELEASE(m_debug);
+	
+}
+
+texture2d* renderer::load_texture2d_from_file(const string& id, const char* path, bool flip_v)
+{
+	const auto found = s_cached_texture.find(id);
+	if (found == std::end(s_cached_texture)) {
+		surface loaded_surface(path, flip_v);
+		texture2d* created = new texture2d(this, &loaded_surface);
+		s_cached_texture[id] = created;
+		return created;
+	}
+	return found->second;
+}
+
+texture2d* renderer::get_texture2d_by_id(const string& id) const
+{
+	const auto found = s_cached_texture.find(id);
+	if (found == std::end(s_cached_texture)) {
+		ALERT(format("texture(id=%s) has not loaded yet.", id.c_str()));
+		return nullptr;
+	}
+	return found->second;
+}
+
+void renderer::set_ortho(const vec2& ortho_min, const vec2& ortho_max, float32 near_z, float32 far_z)
+{
+	const float x_ratio = 1.f / (ortho_max.x - ortho_min.x);
+	const float y_ratio = 1.f / (ortho_max.y - ortho_min.y);
+	const float z_ratio = 1.f / (far_z - near_z);
+	const vec4 i(2.f * x_ratio, 0.f, 0.f, -(ortho_min.x + ortho_max.x) * x_ratio);
+	const vec4 j(0.f, 2.f * y_ratio, 0.f, -(ortho_min.y + ortho_max.y) * y_ratio);
+	const vec4 k(0.f, 0.f, -z_ratio, far_z * z_ratio);
+	const vec4 t(0.f, 0.f, 0.f, 1.f);
+	m_projection.i = i;
+	m_projection.j = j;
+	m_projection.k = k;
+	m_projection.t = t;
+	m_projection.transpose();
+}
+
+void renderer::set_viewport(const ivec2& size, const ivec2& topleft) const
+{
+	D3D11_VIEWPORT vp;
+	vp.Width = size.x;
+	vp.Height = size.y;
+	vp.TopLeftX = topleft.x;
+	vp.TopLeftY = topleft.y;
+	vp.MinDepth = 0.f;
+	vp.MaxDepth = 1.f;
+	m_context->RSSetViewports(1, &vp);
+}
+
+void renderer::reset_viewport() const
+{
+	static D3D11_VIEWPORT vp;
+	vp.Width = m_frame_render_target->m_size.x;
+	vp.Height = m_frame_render_target->m_size.y;
+	vp.TopLeftX = 0u;
+	vp.TopLeftY = 0u;
+	vp.MinDepth = 0.f;
+	vp.MaxDepth = 1.f;
+	m_context->RSSetViewports(1, &vp);
 }
 
 void renderer::copy_texture(texture* dst, texture* src) const
@@ -129,6 +195,27 @@ void renderer::bind_vbo(vertex_buffer* vbo) const
 	m_context->IASetVertexBuffers(0, 1, &buf, &stride, &offset);
 }
 
+void renderer::bind_ibo(index_buffer* ibo) const
+{
+	dx_buffer* buf = ibo ? ibo->m_handle : nullptr;
+	m_context->IASetIndexBuffer(buf, index_buffer::format, 0);
+}
+
+void renderer::bind_constant_buffer(e_constant_buffer_id buffer_id, constant_buffer* buffer) const
+{
+	dx_buffer* buf = buffer ? buffer->get_buffer_handle() : nullptr;
+	m_context->VSSetConstantBuffers(buffer_id, 1, &buf);
+	m_context->PSSetConstantBuffers(buffer_id, 1, &buf);
+}
+
+void renderer::bind_texture(const texture* tex, e_texture_slot slot, e_texture_filter filter) const
+{
+	dx_srv* srv = tex->get_view_handle();
+	dx_sampler* sampler = sampler::get_sampler(filter);
+	m_context->PSSetShaderResources(slot, 1, &srv);
+	m_context->PSSetSamplers(slot, 1, &sampler);
+}
+
 void renderer::clear_render_target(const rgba& clear_color) const
 {
 	m_context->ClearRenderTargetView(m_frame_render_target->get_dx_handle(), reinterpret_cast<const FLOAT*>(&clear_color));
@@ -145,4 +232,30 @@ void renderer::draw(size_t vertex_count, size_t offset) const
 	m_context->IASetInputLayout(m_current_shader->m_vbo_layout);
 	m_context->Draw(vertex_count, offset);
 }
+
+void renderer::draw_indexed(size_t indice_count, size_t offset) const
+{
+	m_current_shader->update_all_mode();
+	static float black[] = { 0.f,0.f,0.f,1.f };
+	m_context->OMSetBlendState(m_current_shader->m_dx_blend_state, black, 0xffffffff);
+	m_context->OMSetDepthStencilState(m_current_shader->m_dx_depth_stencil_state, 0);
+	m_context->RSSetState(m_current_shader->m_dx_rasterizer_state);
+	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_context->IASetInputLayout(m_current_shader->m_vbo_layout);
+	m_context->DrawIndexed(indice_count, offset, 0);
+}
+
+void renderer::draw_mesh(const mesh* mesh) const
+{
+	bind_vbo(mesh->m_gpu_vbo);
+	m_current_shader->create_dx_vbo_layout(mesh->m_layout);
+	if (mesh->is_indexed()) {
+		bind_ibo(mesh->m_gpu_ibo);
+		draw_indexed(mesh->get_element_count());
+	} else {
+		draw(mesh->get_element_count());
+	}
+}
+
+STATIC std::unordered_map<string, texture2d*> renderer::s_cached_texture;
 };

@@ -66,7 +66,12 @@ struct vec2
 	NODISCARD float32 length() const { return ::sqrtf(x * x + y * y); }
 	NODISCARD float32 length_square() const { return x * x + y * y; }
 	NODISCARD vec2 normalized() const { vec2 r = *this; r.normalize(); return r; }
-
+	NODISCARD vec2 ratated_90_deg(int32 positive=1) const
+	{
+		vec2 result(*this);
+		result.rotate_90_deg(positive);
+		return result;
+	}
 	static vec2 ZERO;
 	static vec2 ONE;
 	static vec2 from_repl(const string& repl);
@@ -89,7 +94,7 @@ struct vec3
 	vec3& operator -= (const vec3& rhs) { x -= rhs.x; y -= rhs.y; z -= rhs.z; return *this; }
 	vec3& operator *= (const vec3& rhs) { x *= rhs.x; y *= rhs.y; z *= rhs.z; return *this; }
 	vec3& operator /= (const vec3& rhs) { x /= rhs.x; y /= rhs.y; z /= rhs.z; return *this; }
-	vec3& operator *= (float scale) { x *= scale; y *= scale; z *= scale; return *this; }
+	vec3& operator *= (float32 scale) { x *= scale; y *= scale; z *= scale; return *this; }
 
 	vec3 operator + (const vec3& rhs) const { return { x + rhs.x, y + rhs.y, z + rhs.z }; }
 	vec3 operator - (const vec3& rhs) const { return { x - rhs.x, y - rhs.y, z - rhs.z }; }
@@ -111,9 +116,30 @@ struct vec4
 	union { float32 z = 0.f; float32 b; };
 	union { float32 w = 0.f; float32 a; };
 	vec4() = default;
+	vec4(float32 x, float32 y, float32 z, float32 w) :x(x), y(y), z(z), w(w) {}
+	vec4(const vec2& promote_from, float32 z=0.f, float32 w=0.f);
+	vec4(const vec3& promote_from, float32 w=0.f);
 
+	NODISCARD string repl() const;
+
+	vec4& operator =  (const vec4& copy_from) { x = copy_from.x; y = copy_from.y; z = copy_from.z; w = copy_from.w; return *this; }
+	vec4& operator += (const vec4& rhs) { x += rhs.x; y += rhs.y; z += rhs.z; w += rhs.w; return *this; }
+	vec4& operator -= (const vec4& rhs) { x -= rhs.x; y -= rhs.y; z -= rhs.z; w -= rhs.w; return *this; }
+	vec4& operator *= (const vec4& rhs) { x *= rhs.x; y *= rhs.y; z *= rhs.z; w *= rhs.w; return *this; }
+	vec4& operator /= (const vec4& rhs) { x /= rhs.x; y /= rhs.y; z /= rhs.z; w /= rhs.w; return *this; }
+	vec4& operator *= (float32 scale) { x *= scale; y *= scale; z *= scale; w *= scale; return *this; }
+
+	vec4 operator + (const vec4& rhs) const { return { x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w }; }
+	vec4 operator - (const vec4& rhs) const { return { x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w }; }
+	vec4 operator * (const vec4& rhs) const { return { x * rhs.x, y * rhs.y, z * rhs.z, w * rhs.w }; }
+	vec4 operator / (const vec4& rhs) const { return { x / rhs.x, y / rhs.y, z / rhs.z, w / rhs.w }; }
+	vec4 operator * (float32 scale) const { return { x * scale, y * scale, z * scale, w * scale }; }
+	vec4 operator / (float32 inv_scale) const { const float scale = 1.f / inv_scale; return { x * scale, y * scale, z * scale, w * scale}; }
+	friend vec3 operator * (float32 scale, const vec3& v);
+	
 	static vec4 ZERO;
 	static vec4 ONE;
+	static vec4 from_repl(const string& repl);
 };
 	//////////////////////////////////////////////////////////////////////////
 	//////////      Vector of integers         ///////////////////////////////
