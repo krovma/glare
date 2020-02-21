@@ -1,5 +1,5 @@
 #include "glare/math/vector.h"
-#include "glare/core/string_utilities.h"
+#include "glare/core/string_utils.h"
 #include "glare/core/assert.h"
 #include <cstdlib>
 ////////////////////////////////
@@ -29,7 +29,7 @@ vec2::vec2(const vec4& truncate_from)
 {
 }
 
-string vec2::repl() const
+string vec2::repr() const
 {
 	return format("%g,%g", x, y);
 }
@@ -63,7 +63,7 @@ void vec2::rotate_deg(float32 degree)
 	UNIMPLEMENTED_BREAK;
 }
 
-STATIC vec2 vec2::from_repl(const string& repl)
+STATIC vec2 vec2::from_repr(const string& repl)
 {
 	std::vector<string> comps = split(repl.c_str(), ',');
 	if (comps.size() < 2) {
@@ -92,12 +92,12 @@ vec3::vec3(const vec4& truncate_from)
 {
 }
 
-string vec3::repl() const
+string vec3::repr() const
 {
 	return format("%g,%g,%g", x, y, z);
 }
 
-vec2 vec3::from_repl(const string& repl)
+vec2 vec3::from_repr(const string& repl)
 {
 	std::vector<string> comps = split(repl.c_str(), ',');
 	if (comps.size() < 3) {
@@ -129,13 +129,13 @@ vec4::vec4(const vec3& promote_from, float32 w)
 {
 }
 
-string vec4::repl() const
+string vec4::repr() const
 {
 	return format("%g,%g,%g", x, y, z, w);
 	
 }
 
-vec4 vec4::from_repl(const string& repl)
+vec4 vec4::from_repr(const string& repl)
 {
 	std::vector<string> comps = split(repl.c_str(), ',');
 	if (comps.size() < 4) {
@@ -152,13 +152,13 @@ vec4 vec4::from_repl(const string& repl)
 	return result;
 }
 
-string ivec2::repl() const
+string ivec2::repr() const
 {
 	return format("%i,%i", x, y);
 	
 }
 
-vec2 ivec2::from_repl(const string& repl)
+vec2 ivec2::from_repr(const string& repl)
 {
 	std::vector<string> comps = split(repl.c_str(), ',');
 	if (comps.size() < 2) {

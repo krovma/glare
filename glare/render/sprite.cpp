@@ -1,7 +1,7 @@
 #include "glare/render/sprite.h"
 #include "glare/render/renderer.h"
 #include "core/assert.h"
-#include "core/string_utilities.h"
+#include "core/string_utils.h"
 
 namespace glare
 {

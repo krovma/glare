@@ -2,7 +2,7 @@
 #include "glare/render/renderer.h"
 #include "glare/core/assert.h"
 #include "glare/core/log.h"
-#include "glare/core/string_utilities.h"
+#include "glare/core/string_utils.h"
 #include "glare/data/xml_utils.h"
 #include <d3dcompiler.h>
 #pragma comment(lib, "d3dcompiler.lib")

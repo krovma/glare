@@ -22,7 +22,7 @@ T get_attr(const node& node, const char* attr_name, const T& default_value)
 	const attribute attr = node.attribute(attr_name);
 	if (!attr.empty()) {
 		string repl = attr.value();
-		value = T::from_repl(repl);
+		value = T::from_repr(repl);
 	}
 	return value;
 }

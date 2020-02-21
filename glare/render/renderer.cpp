@@ -4,7 +4,7 @@
 #include "glare/render/surface.h"
 #include "glare/render/mesh.h"
 #include "glare/core/assert.h"
-#include "core/string_utilities.h"
+#include "core/string_utils.h"
 #include "glare/render/sampler.h"
 
 namespace glare

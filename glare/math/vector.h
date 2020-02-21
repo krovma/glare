@@ -31,7 +31,7 @@ struct vec2
 	vec2(const vec3& truncate_from);
 	vec2(const vec4& truncate_from);
 
-	NODISCARD string repl() const;
+	NODISCARD string repr() const;
 	
 	vec2& operator = (const vec2& copy_from) { x = copy_from.x; y = copy_from.y; return *this; }
 	vec2& operator += (const vec2& rhs) { x += rhs.x; y += rhs.y; return *this; }
@@ -74,7 +74,7 @@ struct vec2
 	}
 	static vec2 ZERO;
 	static vec2 ONE;
-	static vec2 from_repl(const string& repl);
+	static vec2 from_repr(const string& repl);
 };
 
 struct vec3
@@ -87,7 +87,7 @@ struct vec3
 	vec3(const vec2& promote_from, float32 z=0.f);
 	vec3(const vec4& truncate_from);
 
-	NODISCARD string repl() const;
+	NODISCARD string repr() const;
 
 	vec3& operator =  (const vec3& copy_from) { x = copy_from.x; y = copy_from.y; z = copy_from.z; return *this; }
 	vec3& operator += (const vec3& rhs) { x += rhs.x; y += rhs.y; z += rhs.z; return *this; }
@@ -106,7 +106,7 @@ struct vec3
 	
 	static vec3 ZERO;
 	static vec3 ONE;
-	static vec2 from_repl(const string& repl);
+	static vec2 from_repr(const string& repl);
 };
 
 struct vec4
@@ -120,7 +120,7 @@ struct vec4
 	vec4(const vec2& promote_from, float32 z=0.f, float32 w=0.f);
 	vec4(const vec3& promote_from, float32 w=0.f);
 
-	NODISCARD string repl() const;
+	NODISCARD string repr() const;
 
 	vec4& operator =  (const vec4& copy_from) { x = copy_from.x; y = copy_from.y; z = copy_from.z; w = copy_from.w; return *this; }
 	vec4& operator += (const vec4& rhs) { x += rhs.x; y += rhs.y; z += rhs.z; w += rhs.w; return *this; }
@@ -139,7 +139,7 @@ struct vec4
 	
 	static vec4 ZERO;
 	static vec4 ONE;
-	static vec4 from_repl(const string& repl);
+	static vec4 from_repr(const string& repl);
 };
 	//////////////////////////////////////////////////////////////////////////
 	//////////      Vector of integers         ///////////////////////////////
@@ -155,7 +155,7 @@ struct ivec2
 	ivec2(const vec2& castFrom) :x(static_cast<int32>(castFrom.x)), y(static_cast<int32>(castFrom.y)) {} //implicit cast OK
 	~ivec2() = default;
 
-	NODISCARD string repl() const;
+	NODISCARD string repr() const;
 	
 	ivec2 operator + (const ivec2& rhs)	const	{ return ivec2{ x + rhs.x, y + rhs.y }; }
 	ivec2 operator - (const ivec2& rhs)	const	{ return ivec2{ x - rhs.x, y - rhs.y }; }
@@ -173,7 +173,7 @@ struct ivec2
 	ivec2& operator -= (const ivec2& rhs)		{ x -= rhs.x; y -= rhs.y; return *this; }
 	ivec2& operator *= (const ivec2& rhs)		{ x *= rhs.x; y *= rhs.y; return *this; }
 
-	static vec2 from_repl(const string& repl);
+	static vec2 from_repr(const string& repl);
 	
 };
 };
