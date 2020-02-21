@@ -1,4 +1,4 @@
-#include "glare/core/string_utilities.h"
+#include "glare/core/string_utils.h"
 #include "glare/core/assert.h"
 #include <fstream>
 #include <sstream>

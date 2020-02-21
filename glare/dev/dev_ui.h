@@ -19,5 +19,6 @@ public:
 	static window*		m_window;
 	static renderer*	m_renderer;
 	static bool			m_run;
+	static bool			m_console_on;
 };
 }

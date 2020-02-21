@@ -1,6 +1,6 @@
 #include "glare/data/xml_utils.h"
 #include "glare/core/assert.h"
-#include "glare/core/string_utilities.h"
+#include "glare/core/string_utils.h"
 
 namespace glare
 {

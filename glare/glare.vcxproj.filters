@@ -60,9 +60,6 @@
     <ClInclude Include="core\assert.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="core\string_utilities.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="core\log.h">
       <Filter>core</Filter>
     </ClInclude>
@@ -165,6 +162,15 @@
     <ClInclude Include="render\mesh.h">
       <Filter>render</Filter>
     </ClInclude>
+    <ClInclude Include="core\event.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\dict.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\string_utils.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\vector.cpp">
@@ -174,9 +180,6 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="core\assert.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="core\string_utilities.cpp">
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="core\log.cpp">
@@ -253,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="render\mesh.cpp">
       <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="core\string_utils.cpp">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
