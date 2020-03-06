@@ -19,5 +19,7 @@ void _unimplemented_break();
 #define GLARE_DEBUG
 #define UNIMPLEMENTED_BREAK {glare::_unimplemented_break();}
 #else
-#define UNIMPELEMTNED_BREAK {}
+#define UNIMPLEMENTED_BREAK {}
 #endif
+
+#pragma warning(disable:4201)

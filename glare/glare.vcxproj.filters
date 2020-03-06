@@ -171,6 +171,9 @@
     <ClInclude Include="core\string_utils.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="core\input.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\vector.cpp">
@@ -260,5 +263,14 @@
     <ClCompile Include="core\string_utils.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="core\event.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\input.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="glare.ruleset" />
   </ItemGroup>
 </Project>

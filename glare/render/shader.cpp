@@ -83,7 +83,7 @@ void shader_stage::compile(
 	}
 	m_bytecode = bytecode;
 	m_stage = stage;
-	HRESULT hr;
+	HRESULT hr = -1;
 	dx_device* device = r->get_dx_device();
 	switch(stage) {
 	case VERTEX_SHADER: {

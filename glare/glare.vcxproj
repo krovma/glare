@@ -74,25 +74,25 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</IntDir>
-    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>glare.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</IntDir>
-    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>glare.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</IntDir>
-    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>glare.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)../../temporary/$(ProjectName)_$(PlatformShortName)_$(Configuration)/</IntDir>
-    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>glare.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -171,6 +171,8 @@
     <ClCompile Include="..\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="core\common.cpp" />
+    <ClCompile Include="core\event.cpp" />
+    <ClCompile Include="core\input.cpp" />
     <ClCompile Include="data\xml_utils.cpp" />
     <ClCompile Include="dev\dev_ui.cpp" />
     <ClCompile Include="math\aabb2.cpp" />
@@ -202,6 +204,7 @@
     <ClInclude Include="core\common.h" />
     <ClInclude Include="core\dict.h" />
     <ClInclude Include="core\event.h" />
+    <ClInclude Include="core\input.h" />
     <ClInclude Include="core\log.h" />
     <ClInclude Include="core\preference.h" />
     <ClInclude Include="core\rng.h" />
@@ -237,6 +240,9 @@
     <ClCompile Include="core\window.cpp" />
     <ClCompile Include="math\vector.cpp" />
     <ClCompile Include="render\renderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="glare.ruleset" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

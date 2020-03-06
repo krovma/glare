@@ -4,12 +4,14 @@
 #include <cstdlib>
 ////////////////////////////////
 namespace glare {
-STATIC vec2 vec2::ZERO;
-STATIC vec3 vec3::ZERO;
-STATIC vec4 vec4::ZERO;
-STATIC vec2 vec2::ONE { 1, 1 };
-STATIC vec3 vec3::ONE { 1, 1, 1 };
-STATIC vec4 vec4::ONE { 1, 1, 1, 1 };
+STATIC const ivec2 ivec2::ZERO;
+STATIC const vec2 vec2::ZERO;
+STATIC const vec3 vec3::ZERO;
+STATIC const vec4 vec4::ZERO;
+STATIC const ivec2 ivec2::ONE {1, 1};
+STATIC const vec2 vec2::ONE { 1, 1 };
+STATIC const vec3 vec3::ONE { 1, 1, 1 };
+STATIC const vec4 vec4::ONE { 1, 1, 1, 1 };
 
 vec2::vec2(const ivec2& cast_from)
     : x(static_cast<float32>(cast_from.x))
@@ -63,14 +65,14 @@ void vec2::rotate_deg(float32 degree)
 	UNIMPLEMENTED_BREAK;
 }
 
-STATIC vec2 vec2::from_repr(const string& repl)
+STATIC vec2 vec2::from_repr(const string& repr)
 {
-	std::vector<string> comps = split(repl.c_str(), ',');
+	std::vector<string> comps = split(repr.c_str(), ',');
 	if (comps.size() < 2) {
-		FATAL(format("Cannot convert [%s] to vec2", repl.c_str()));
+		FATAL(format("Cannot convert [%s] to vec2", repr.c_str()));
 	}
 	if (comps.size() > 2) {
-		ALERT(format("[%s] is too long for vec2. Truncated", repl.c_str()));
+		ALERT(format("[%s] is too long for vec2. Truncated", repr.c_str()));
 	}
 	vec2 result;
 	result.x = strtof(comps[0].c_str(), nullptr);
@@ -135,14 +137,14 @@ string vec4::repr() const
 	
 }
 
-vec4 vec4::from_repr(const string& repl)
+vec4 vec4::from_repr(const string& repr)
 {
-	std::vector<string> comps = split(repl.c_str(), ',');
+	std::vector<string> comps = split(repr.c_str(), ',');
 	if (comps.size() < 4) {
-		FATAL(format("Cannot convert [%s] to vec4", repl.c_str()));
+		FATAL(format("Cannot convert [%s] to vec4", repr.c_str()));
 	}
 	if (comps.size() > 4) {
-		ALERT(format("[%s] is too long for vec4. Truncated", repl.c_str()));
+		ALERT(format("[%s] is too long for vec4. Truncated", repr.c_str()));
 	}
 	vec4 result;
 	result.x = strtof(comps[0].c_str(), nullptr);
@@ -158,16 +160,16 @@ string ivec2::repr() const
 	
 }
 
-vec2 ivec2::from_repr(const string& repl)
+ivec2 ivec2::from_repr(const string& repr)
 {
-	std::vector<string> comps = split(repl.c_str(), ',');
+	std::vector<string> comps = split(repr.c_str(), ',');
 	if (comps.size() < 2) {
-		FATAL(format("Cannot convert [%s] to ivec2", repl.c_str()));
+		FATAL(format("Cannot convert [%s] to ivec2", repr.c_str()));
 	}
 	if (comps.size() > 2) {
-		ALERT(format("[%s] is too long for ivec2. Truncated", repl.c_str()));
+		ALERT(format("[%s] is too long for ivec2. Truncated", repr.c_str()));
 	}
-	vec3 result;
+	ivec2 result;
 	result.x = strtol(comps[0].c_str(), nullptr, 10);
 	result.y = strtol(comps[1].c_str(), nullptr, 10);
 	return result;

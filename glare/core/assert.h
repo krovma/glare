@@ -6,7 +6,7 @@ namespace glare
 {
 bool is_debugger_available();
 
-void error_and_die(const char* file_path, const char* function_full_name, int line_number
+_declspec(noreturn) void error_and_die(const char* file_path, const char* function_full_name, int line_number
                    , const std::string& error_message, const char* condition_text = nullptr);
 
 void alert_and_continue(const char* file_path, const char* function_full_name, int line_number

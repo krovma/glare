@@ -72,9 +72,9 @@ struct vec2
 		result.rotate_90_deg(positive);
 		return result;
 	}
-	static vec2 ZERO;
-	static vec2 ONE;
-	static vec2 from_repr(const string& repl);
+	static const vec2 ZERO;
+	static const vec2 ONE;
+	static vec2 from_repr(const string& repr);
 };
 
 struct vec3
@@ -104,9 +104,9 @@ struct vec3
 	vec3 operator / (float32 inv_scale) const { const float scale = 1.f / inv_scale; return { x * scale, y * scale, z * scale }; }
 	friend vec3 operator * (float32 scale, const vec3& v);
 	
-	static vec3 ZERO;
-	static vec3 ONE;
-	static vec2 from_repr(const string& repl);
+	static const vec3 ZERO;
+	static const vec3 ONE;
+	static vec2 from_repr(const string& repr);
 };
 
 struct vec4
@@ -137,9 +137,9 @@ struct vec4
 	vec4 operator / (float32 inv_scale) const { const float scale = 1.f / inv_scale; return { x * scale, y * scale, z * scale, w * scale}; }
 	friend vec3 operator * (float32 scale, const vec3& v);
 	
-	static vec4 ZERO;
-	static vec4 ONE;
-	static vec4 from_repr(const string& repl);
+	static const vec4 ZERO;
+	static const vec4 ONE;
+	static vec4 from_repr(const string& repr);
 };
 	//////////////////////////////////////////////////////////////////////////
 	//////////      Vector of integers         ///////////////////////////////
@@ -173,7 +173,8 @@ struct ivec2
 	ivec2& operator -= (const ivec2& rhs)		{ x -= rhs.x; y -= rhs.y; return *this; }
 	ivec2& operator *= (const ivec2& rhs)		{ x *= rhs.x; y *= rhs.y; return *this; }
 
-	static vec2 from_repr(const string& repl);
-	
+	static ivec2 from_repr(const string& repr);
+	static const ivec2 ZERO;
+	static const ivec2 ONE;
 };
 };
