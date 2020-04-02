@@ -170,6 +170,7 @@
     <ClCompile Include="..\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="..\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\pugixml\pugixml.cpp" />
+    <ClCompile Include="core\clock.cpp" />
     <ClCompile Include="core\common.cpp" />
     <ClCompile Include="core\event.cpp" />
     <ClCompile Include="core\input.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="..\stb\stb_image_write.h" />
     <ClInclude Include="..\stb\stb_truetype.h" />
     <ClInclude Include="core\assert.h" />
+    <ClInclude Include="core\clock.h" />
     <ClInclude Include="core\color.h" />
     <ClInclude Include="core\common.h" />
     <ClInclude Include="core\dict.h" />

@@ -1,4 +1,5 @@
 #include "glare/math/vector.h"
+#include "glare/math/utilities.h"
 #include "glare/core/string_utils.h"
 #include "glare/core/assert.h"
 #include <cstdlib>
@@ -57,12 +58,17 @@ void vec2::rotate_90_deg(int32 positive/*=1*/)
 
 void vec2::rotate(float32 radian)
 {
-	UNIMPLEMENTED_BREAK;
+	const float cc = cos(radian);
+	const float ss = sin(radian);
+	const float new_x = cc * x - ss * y;
+	const float new_y = ss * x + cc * y;
+	x = new_x;
+	y = new_y;
 }
 
 void vec2::rotate_deg(float32 degree)
 {
-	UNIMPLEMENTED_BREAK;
+	rotate(dtr(degree));
 }
 
 STATIC vec2 vec2::from_repr(const string& repr)

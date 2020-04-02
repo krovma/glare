@@ -12,19 +12,25 @@ class entry_base
 public:
 	virtual ~entry_base() = default;
 	virtual string repr() = 0;
+	NODISCARD virtual entry_base* clone() const = 0;
 };
 
 template<typename T>
 class dict_entry : public entry_base
 {
 public:
-	dict_entry(T value)
-		: m_value(std::move(value))
+	dict_entry(const T& value)
+		: m_value(value)
 	{
 	}
 	string repr() override
 	{
 		return glare::repr(m_value);
+	}
+
+	NODISCARD dict_entry<T>* clone() const override
+	{
+		return new dict_entry<T>(m_value);
 	}
 
 public:
@@ -34,6 +40,19 @@ public:
 class dict
 {
 public:
+	dict() = default;
+	dict(const dict& copy)
+	{
+		for(auto& each : copy.m_dict) {
+			m_dict[each.first] = each.second->clone();
+		}
+	}
+	~dict()
+	{
+		for (auto& each : m_dict) {
+			delete each.second;
+		}
+	}
 	template<typename T>
 	void set(const string& k, const T& v)
 	{

@@ -148,6 +148,8 @@ void renderer::set_ortho(const vec2& ortho_min, const vec2& ortho_max, float32 n
 	m_projection.k = k;
 	m_projection.t = t;
 	m_projection.transpose();
+
+	m_buffer_project->buffer(&m_projection, sizeof(m_projection));
 }
 
 void renderer::set_viewport(const ivec2& size, const ivec2& topleft) const

@@ -80,7 +80,7 @@ void mesh_builder::add_disk(mesh& obj, const vec2& center, float radius, uint32 
 	for(size_t i = 1; i <= slice; ++i) {
 		const float32 theta = static_cast<float32>(i - 1) / static_cast<float32>(slice) * PI * 2.f;
 		vec2 uv {cosf(theta), sinf(theta)};
-		uv.y = 1.f - uv.y;
+		//uv.y = 1.f - uv.y;
 		uv *= 0.5f;
 		uv += {0.5f, 0.5f};
 		uv *= size;

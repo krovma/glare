@@ -20,10 +20,10 @@ constexpr decltype(auto) clamp(const T& value, const T& min, const T& max)
 }
 
 template<typename T>
-constexpr int sgn(const T& value)
+constexpr int32 sgn(const T& value)
 {
 	const T zero(0);
-	return static_cast<int>(zero < value) - static_cast<int>(value < zero);
+	return static_cast<int32>(zero < value) - static_cast<int32>(value < zero);
 }
 
 template<typename T, typename P>
